@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 
 
 // ---------------------------------------------
@@ -32,3 +32,11 @@ Route::get('/comment/commentlist', [writeController::class, 'commentlist'])->nam
 Route::post('/comment/commentdel',[writeController::class, 'commentdel'])->name('comment.commentdel');
 
 Route::get('/board/boardlist', [writeController::class, 'boardlist'])->name('comment.commentlist');
+
+// ---------------------------------------------
+// 섹션명       : 게시글, 댓글 신고 
+// 기능         : 게시글, 댓글 신고 관련 라우트 설정
+// 관리자       : 채수지
+// 생성일       : 2023-07-20
+// ---------------------------------------------
+Route::get('/report', [ReportController::class, 'returnview']);
