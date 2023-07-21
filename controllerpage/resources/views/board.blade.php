@@ -16,6 +16,7 @@
                 <th>신고 접수건수</th>
                 <th>게시글 생성일</th>
                 <th>게시글 삭제일</th>
+                <th>삭제여부</th>
             </tr>
 
             @foreach ($data as $item)
@@ -26,6 +27,7 @@
                         <td>{{ $item->board_id }}</td>
                         <td>{{ $item->user_id }}</td>
                         <td>{{ $item->btitle }}</td>
+                        <td>{{ $item->Count }}</td>
                         <td>{{ $item->created_at }}</td>
                         <td>{{$item->deleted_at}}</td>
                             @if($item->deleted_at === null)

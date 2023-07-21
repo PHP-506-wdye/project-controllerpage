@@ -133,6 +133,7 @@
                                 <i class="me-3 fa fa-user" aria-hidden="true"></i><span
                                     class="hide-menu">회원관리</span></a>
                         </li>
+                        </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="{{route('board.boardlist')}}" aria-expanded="false"><i class="me-3 fa fa-table"
                                     aria-hidden="true"></i><span class="hide-menu">게시글 관리</span></a></li>
@@ -141,7 +142,7 @@
                                     aria-hidden="true"></i><span class="hide-menu">댓글 관리</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="map-google.html" aria-expanded="false"><i class="me-3 fa fa-globe"
-                                    aria-hidden="true"></i><span class="hide-menu">여기는.</span></a></li>
+                                    aria-hidden="true"></i><span class="hide-menu">Google Map</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="pages-blank.html" aria-expanded="false"><i class="me-3 fa fa-columns"
                                     aria-hidden="true"></i><span class="hide-menu">Blank</span></a></li>
@@ -207,42 +208,46 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">댓글관리</h4>
-                                <h6 class="card-subtitle">댓글 <code>.관리자용</code></h6>
+                                <h4 class="card-title">회원 관리</h4>
+                                <h6 class="card-subtitle">회원정보 <code>.관리자용</code></h6>
                                 <div class="table-responsive">
                                     <table class="table user-table no-wrap">
                                         <thead>
                                             <tr>
-                                                <th class="border-top-0">댓글번호</th>
-                                                <th class="border-top-0">유저번호</th>
-                                                <th class="border-top-0">게시글번호</th>
-                                                <th class="border-top-0">댓글 내용</th>
-                                                <th class="border-top-0">신고 접수건수</th>
-                                                <th class="border-top-0">댓글 생성일자</th>
-                                                <th class="border-top-0">댓글 삭제일자</th>
-                                                <th class="border-top-0">삭제여부</th>
+                                                <th class="border-top-0">회원 번호</th>
+                                                <th class="border-top-0">회원 이름</th>
+                                                <th class="border-top-0">닉네임</th>
+                                                <th class="border-top-0">연락처</th>
+                                                <th class="border-top-0">가입일</th>
+                                                <th class="border-top-0">유저상태 번호</th>
+                                                <th class="border-top-0">유저전환여부</th>
+                                                {{-- <th class="border-top-0">신고받은 횟수</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
                                                 @foreach ($data as $item)
-                                                    <form action="{{ route('comment.commentdel', ['id' => $item->reply_id])}}" method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <tr>
-                                                        <td>{{ $item->reply_id }}</td>
-                                                        <td>{{ $item->user_id }}</td>
-                                                        <td>{{ $item->board_id }}</td>
-                                                        <td>{{ $item->rcontent }}</td>
-                                                        <td>{{ $item->count }}</td>
-                                                        <td>{{ $item->created_at }}</td>
-                                                        <td>{{$item->deleted_at}}</td>
-                                                        @if($item->deleted_at === null)
-                                                        <td><button type="submit">삭제</button></td>
-                                                            @elseif($item->deleted_at !== null)
-                                                                <td>삭제된 댓글입니다.</td>
-                                                            @endif
+                                                    <form action="{{ route('member.memberstop', ['id' => $item->user_id])}}" method="post">
+                                                        @csrf
+
+                                                        <tr>
+                                                            <td>{{ $item->user_id }}</td>
+                                                            <td>{{ $item->user_email }}</td>
+                                                            <td>{{ $item->user_name }}</td>
+                                                            <td>{{ $item->user_phone_num }}</td>
+                                                            <td>{{ $item->created_at }}</td>
+                                                            <td>{{$item->user_status}}</td>
+                                                            <td>
+                                                                @if($item->user_status === '3')
+                                                                    정지된 회원입니다.
+                                                                        <button>
+                                                                            복구
+                                                                        </button>
+                                                                    @elseif($item->user_status !== '3')
+                                                                <button type="submit">정지</button>
+                                                                @endif
+                                                            </td>
                                                         </tr>
-                                                        </form>    
+                                                    </form>   
                                                 @endforeach
                                             
                                             {{-- <tr>
