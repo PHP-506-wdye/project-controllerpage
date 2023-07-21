@@ -17,21 +17,24 @@ class ApiReportController extends Controller
             $report = DB::select('SELECT * FROM report_lists
             INNER JOIN board_replies
             on board_replies.reply_id = report_lists.reply_id
-            INNER JOIN user_infos
-            ON user_infos.user_id = report_lists.suspect
-            INNER JOIN user_infos dd
-            ON dd.user_id = report_lists.reporter
             WHERE report_lists.rep_id = ? AND report_lists.complate_flg = 0', [$id]);
         }else{
             $report = DB::select('SELECT * FROM report_lists
             INNER JOIN boards 
             on boards.board_id = report_lists.board_id
-            INNER JOIN user_infos
-            ON user_infos.user_id = report_lists.suspect
-            INNER JOIN user_infos dd
-            ON dd.user_id = report_lists.reporter
             WHERE report_lists.board_id = ? AND report_lists.complate_flg = 0', [$board]);
         }
+
+        $user = DB::select('SELECT 
+        ff.user_id AS suspect, ff.user_name AS suspectid, 
+        dd.user_id AS reporter, dd.user_name AS reporterid,
+        rp.complate_flg, rp.created_at
+        FROM report_lists AS rp
+        LEFT JOIN user_infos AS ff
+        ON rp.suspect = ff.user_id
+        LEFT JOIN user_infos AS dd
+        ON rp.reporter = dd.user_id
+        WHERE rp.rep_id = ? AND rp.complate_flg = 0', [$id]);
 
         if(!$report){
             $arr['errcode'] = '1';
@@ -39,7 +42,8 @@ class ApiReportController extends Controller
         }else{
             $arr['errcode'] = '0';
             $arr['msg'] = '성공';
-            $arr['data'] = $report;
+            $arr['reportdata'] = $report;
+            $arr['userdata'] = $user;
         }
         
 

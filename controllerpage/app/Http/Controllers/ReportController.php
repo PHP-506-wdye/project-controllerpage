@@ -11,7 +11,6 @@ class ReportController extends Controller
     // todo : user_infos > report_num increment sql 추가
     
     public function returnview() {
-        // todo : 댓글, 게시글 페이지 나누기 
 
         // 신고인 user_id, name, 피신고인 user_id, name 및 피신고인의 신고받은 횟수 정보 / 신고사유 / 신고일, 신고 현황
         $reportinfo = DB::select('SELECT 
@@ -23,23 +22,38 @@ class ReportController extends Controller
         ON rp.suspect = ui2.user_id
         INNER JOIN report_reasons rr
         ON rr.rep_r_id = rp.rep_r_id
-        WHERE rp.complate_flg = 0');
+        order by complate_flg');
 
         return view('report')
         ->with('report_info', $reportinfo);
     }
 
-    // 신고가 들어온 게시물 검토 후 삭제 또는 철회
-    public function ReportPost() {
-        // $reportPost = ReportList::select('');
-    }
-
-    // 신고가 들어온 댓글 검토 후 삭제 또는 철회
-    public function ReportReply() {
+    // 신고 상세내용에서 확인 및 철회 버튼 클릭 시 complate_flg 변경 처리
+    public function confirm(Request $req) {
         
-    }
+        $reportID = (int)$req->reportId;
+        $userId = (int)$req->userId;
+        $complate = $req->complate;
+        // var_dump($req);
+        // exit; 
+        if($complate == 1){
+            DB::table('report_lists')
+            ->where('rep_id', $reportID)
+            ->update([
+                'complate_flg' => $complate,
+                'deleted_at' => now()
+            ]);
 
-    // 신고 받은 횟수가 누적 5회일 경우 유저 상태를 정지된 회원으로 변경 및 정지된 회원의 게시물, 댓글 삭제
+            DB::table('user_infos')
+            ->where('user_id', $userId)
+            ->increment('report_num');
+        }
+
+        return redirect()->route('report.get');
+    }
+ 
+    // 신고받은 회원의 게시물, 댓글 삭제
+    // 게시물 : 삭제 / 댓글 : 관리자에 의해 삭제된 댓글입니다.
     public function stopUser() {
 
     }
