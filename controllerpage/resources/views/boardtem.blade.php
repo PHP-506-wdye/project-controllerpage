@@ -61,7 +61,7 @@
                         <!-- Logo text -->
                         <span class="logo-text">
                             <!-- dark Logo text -->
-                            <img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                            <img src="temple/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
 
                         </span>
                     </a>
@@ -104,7 +104,7 @@
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="../assets/images/users/1.jpg" alt="user" class="profile-pic me-2">Markarn Doe
+                                <img src="temple/assets/images/users/1.jpg" alt="user" class="profile-pic me-2">Markarn Doe
                             </a>
                             <ul class="dropdown-menu show" aria-labelledby="navbarDropdown"></ul>
                         </li>
@@ -129,9 +129,10 @@
                                 href="index.html" aria-expanded="false"><i class="me-3 far fa-clock fa-fw"
                                     aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="pages-profile.html" aria-expanded="false">
+                                href="{{ route('member.memberlist')}}" aria-expanded="false">
                                 <i class="me-3 fa fa-user" aria-hidden="true"></i><span
-                                    class="hide-menu">Profile</span></a>
+                                    class="hide-menu">회원관리</span></a>
+                        </li>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="{{route('board.boardlist')}}" aria-expanded="false"><i class="me-3 fa fa-table"
@@ -207,26 +208,43 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Basic Table</h4>
-                                <h6 class="card-subtitle">Add class <code>.table</code></h6>
+                                <h4 class="card-title">게시글 관리</h4>
+                                <h6 class="card-subtitle">게시글 <code>.관리자용</code></h6>
                                 <div class="table-responsive">
                                     <table class="table user-table no-wrap">
                                         <thead>
                                             <tr>
-                                                <th class="border-top-0">#</th>
-                                                <th class="border-top-0">First Name</th>
-                                                <th class="border-top-0">Last Name</th>
-                                                <th class="border-top-0">Username</th>
+                                                <th class="border-top-0">게시글 번호</th>
+                                                <th class="border-top-0">유저 번호</th>
+                                                <th class="border-top-0">게시글 제목</th>
+                                                <th class="border-top-0">신고 접수건수</th>
+                                                <th class="border-top-0">게시글 생성일</th>
+                                                <th class="border-top-0">게시글 삭제일</th>
+                                                <th class="border-top-0">삭제여부</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Deshmukh</td>
-                                                <td>Prohaska</td>
-                                                <td>@Genelia</td>
-                                            </tr>
-                                            <tr>
+                                                @foreach ($data as $item)
+                                                    <form action="{{ route('board.boarddel', ['id' => $item->board_id])}}" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <tr>
+                                                            <td>{{ $item->board_id }}</td>
+                                                            <td>{{ $item->user_id }}</td>
+                                                            <td>{{ $item->btitle }}</td>
+                                                            <td>{{ $item->Count }}</td>
+                                                            <td>{{ $item->created_at }}</td>
+                                                            <td>{{$item->deleted_at}}</td>
+                                                                @if($item->deleted_at === null)
+                                                                    <td><button type="submit">삭제</button></td>
+                                                                @elseif($item->deleted_at !== null)
+                                                                    <td>삭제된 게시글입니다.</td>
+                                                                @endif
+                                                        </tr>
+                                                    </form>   
+                                                @endforeach
+                                            
+                                            {{-- <tr>
                                                 <td>2</td>
                                                 <td>Deshmukh</td>
                                                 <td>Gaylord</td>
@@ -255,7 +273,7 @@
                                                 <td>Nigam</td>
                                                 <td>Eichmann</td>
                                                 <td>@Sonu</td>
-                                            </tr>
+                                            </tr> --}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -297,16 +315,16 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="temple/assets/plugins/jquery/dist/jquery.min.js"></script>
+    <script src="/temple/assets/plugins/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="temple/assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="temple/js/app-style-switcher.js"></script>
+    <script src="/temple/assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/temple/js/app-style-switcher.js"></script>
     <!--Wave Effects -->
-    <script src="temple/js/waves.js"></script>
+    <script src="/temple/js/waves.js"></script>
     <!--Menu sidebar -->
-    <script src="temple/js/sidebarmenu.js"></script>
+    <script src="/temple/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
-    <script src="temple/js/custom.js"></script>
+    <script src="/temple/js/custom.js"></script>
 </body>
 
 </html>

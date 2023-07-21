@@ -17,6 +17,7 @@
                 <th>신고 접수건수</th>
                 <th>댓글 생성일자</th>
                 <th>댓글 삭제일자</th>
+                <th>삭제여부</th>
             </tr>
         @foreach ($data as $item)
             <form action="{{ route('comment.commentdel', ['id' => $item->reply_id])}}" method="post">

@@ -7,7 +7,7 @@ use App\Models\BoardReply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class writeController extends Controller
+class WriteController extends Controller
 {
     // 모든 댓글들의 정보와 신고 횟수를 불러오는 부분
     public function commentlist(){
@@ -52,7 +52,7 @@ class writeController extends Controller
                                     ba.board_id,
                                     ba.user_id,
                                     ba.btitle,
-                                    COALESCE(COUNT(re.board_id), 0) AS COUNT,
+                                    COALESCE(COUNT(re.board_id), 0) AS Count,
                                     ba.created_at,
                                     ba.deleted_at
                                 FROM 
@@ -78,7 +78,7 @@ class writeController extends Controller
         return redirect()->route('board.boardlist');
     }
 
-
+    
 
 
 
