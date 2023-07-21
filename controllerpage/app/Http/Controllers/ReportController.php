@@ -34,8 +34,9 @@ class ReportController extends Controller
         $reportID = (int)$req->reportId;
         $userId = (int)$req->userId;
         $complate = $req->complate;
-        // var_dump($req);
-        // exit; 
+        $boardId = $req->boartId;
+        $replyId = $req->replyId;
+
         if($complate == 1){
             DB::table('report_lists')
             ->where('rep_id', $reportID)
@@ -47,14 +48,26 @@ class ReportController extends Controller
             DB::table('user_infos')
             ->where('user_id', $userId)
             ->increment('report_num');
+
+            // 신고받은 회원의 게시물, 댓글 삭제
+            // 게시물 : 삭제 / 댓글 : 관리자에 의해 삭제된 댓글입니다.
+            if($req->reply_id != null){
+                DB::table('board_replies')
+                ->where('reply_id', $replyId)
+                ->update([
+                    'updated_at' => now(),
+                    'deleted_at' => now()
+                ]);
+            }else{
+                DB::table('boards')
+                ->where('board_id', $boardId)
+                ->update([
+                    'updated_at' => now(),
+                    'deleted_at' => now()
+                ]);
+            }
         }
 
         return redirect()->route('report.get');
-    }
- 
-    // 신고받은 회원의 게시물, 댓글 삭제
-    // 게시물 : 삭제 / 댓글 : 관리자에 의해 삭제된 댓글입니다.
-    public function stopUser() {
-
     }
 }
