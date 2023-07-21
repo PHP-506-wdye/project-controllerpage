@@ -220,7 +220,8 @@
                                                 <th class="border-top-0">연락처</th>
                                                 <th class="border-top-0">가입일</th>
                                                 <th class="border-top-0">유저상태 번호</th>
-                                                <th class="border-top-0">신고받은 횟수</th>
+                                                <th class="border-top-0">유저전환여부</th>
+                                                {{-- <th class="border-top-0">신고받은 횟수</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -234,12 +235,17 @@
                                                             <td>{{ $item->user_name }}</td>
                                                             <td>{{ $item->user_phone_num }}</td>
                                                             <td>{{ $item->created_at }}</td>
-                                                            <td>{{$item->deleted_at}}</td>
-                                                                @if($item->user_status === 3)
-                                                                    <td>정지된 회원입니다.</td>
-                                                                @elseif($item->deleted_at !==3)
-                                                                    <td><button type="submit">정지</button></td>
+                                                            <td>{{$item->user_status}}</td>
+                                                            <td>
+                                                                @if($item->user_status === '3')
+                                                                    정지된 회원입니다.
+                                                                        <button>
+                                                                            복구
+                                                                        </button>
+                                                                    @elseif($item->user_status !== '3')
+                                                                <button type="submit">정지</button>
                                                                 @endif
+                                                            </td>
                                                         </tr>
                                                     </form>   
                                                 @endforeach
