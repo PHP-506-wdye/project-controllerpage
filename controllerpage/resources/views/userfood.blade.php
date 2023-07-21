@@ -128,19 +128,20 @@
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="index.html" aria-expanded="false"><i class="me-3 far fa-clock fa-fw"
-                                    aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li>
+                                href="{{route('user.food')}}" aria-expanded="false"><i class="me-3 far fa-clock fa-fw"
+                                    aria-hidden="true"></i><span class="hide-menu">회원음식관리</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="pages-profile.html" aria-expanded="false">
+                                href="{{ route('member.memberlist')}}" aria-expanded="false">
                                 <i class="me-3 fa fa-user" aria-hidden="true"></i><span
-                                    class="hide-menu">Profile</span></a>
+                                    class="hide-menu">회원관리</span></a>
+                        </li>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="table-basic.html" aria-expanded="false"><i class="me-3 fa fa-table"
-                                    aria-hidden="true"></i><span class="hide-menu">Table</span></a></li>
+                                href="{{route('board.boardlist')}}" aria-expanded="false"><i class="me-3 fa fa-table"
+                                    aria-hidden="true"></i><span class="hide-menu">게시글 관리</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="icon-fontawesome.html" aria-expanded="false"><i class="me-3 fa fa-font"
-                                    aria-hidden="true"></i><span class="hide-menu">Icon</span></a></li>
+                                href="{{ route('comment.commentlist') }}" aria-expanded="false"><i class="me-3 fa fa-font"
+                                    aria-hidden="true"></i><span class="hide-menu">댓글 관리</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="map-google.html" aria-expanded="false"><i class="me-3 fa fa-globe"
                                     aria-hidden="true"></i><span class="hide-menu">Google Map</span></a></li>
@@ -201,14 +202,77 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
 
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <!-- column -->
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">회원 등록 음식 관리</h4>
+                                <h6 class="card-subtitle">음식정보 <code>.관리자용</code></h6>
+                                <div class="table-responsive">
+                                    <table class="table user-table no-wrap">
+                                        <thead>
+                                            <tr>
+                                                <th class="border-top-0">음식 번호</th>
+                                                <th class="border-top-0">회원 번호</th>
+                                                <th class="border-top-0">음식 이름</th>
+                                                <th class="border-top-0">음식 등록일</th>
+                                                <th class="border-top-0">음식 삭제일</th>
+                                                <th class="border-top-0">삭제여부</th>
+                                            </tr>
+                                        </thead>
+                                        {{-- <tbody>
+                                                @foreach ($data as $item)
+                                                    <form action="{{ route('member.memberstop', ['id' => $item->user_id])}}" method="post">
+                                                        @csrf
+
+                                                        <tr>
+                                                            <td>{{ $item->user_id }}</td>
+                                                            <td>{{ $item->user_email }}</td>
+                                                            <td>{{ $item->user_name }}</td>
+                                                            <td>{{ $item->user_phone_num }}</td>
+                                                            <td>{{ $item->created_at }}</td>
+                                                            <td>{{$item->user_status}}</td>
+                                                            <td>
+                                                                @if($item->user_status === '3')
+                                                                    정지된 회원입니다.
+                                                                        <button>
+                                                                            복구
+                                                                        </button>
+                                                                    @elseif($item->user_status !== '3')
+                                                                <button type="submit">정지</button>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    </form>   
+                                                @endforeach
+                                    
+                                        </tbody> --}}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
 
 
 
 
-
-
-
-            
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->

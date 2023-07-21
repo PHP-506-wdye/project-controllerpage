@@ -77,7 +77,6 @@ use App\Http\Controllers\ManagerController;
 Route::get('/', [ManagerController::class, 'login'])->name('login.get');
 Route::post('/', [ManagerController::class, 'loginpost'])->name('login.post');
 Route::get('/manager/logout', [ManagerController::class, 'logout'])->name('manager.logout');
-Route::get('/test', [ManagerController::class, 'test'])->name('test');
 
 // ---------------------------------------------
 // 섹션명       : 음식 관리 페이지

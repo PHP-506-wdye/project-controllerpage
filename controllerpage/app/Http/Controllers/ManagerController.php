@@ -31,7 +31,7 @@ class ManagerController extends Controller
 
         if(Auth::check()){
             session($user->only('mng_id')); // 세션에 인증된 회원 pk등록
-            return redirect()->intended(route('test')); // intended사용시 앞전 데이터를 없에고 redirect시킨다.
+            return redirect()->intended(route('user.food')); // intended사용시 앞전 데이터를 없에고 redirect시킨다.
         } else{
             $error = '인증작업 에러.';
             return redirect()->back()->with('error',$error);
@@ -43,9 +43,5 @@ class ManagerController extends Controller
         Session::flush(); // 세션 파기
         Auth::logout(); // 로그아웃
         return redirect()->route('login.get');
-    }
-
-    public function test(){
-        return view('test');
     }
 }
