@@ -12,19 +12,29 @@
             <tr>
                 <th>게시글 번호</th>
                 <th>유저 번호</th>
-                <th>게시제목</th>
-                <th>게시글 내용</th>
-                <th>작성일자</th>
+                <th>게시글 제목</th>
+                <th>신고 접수건수</th>
+                <th>게시글 생성일</th>
+                <th>게시글 삭제일</th>
             </tr>
-            <form action=""></form>
+
             @foreach ($data as $item)
-            <tr>
-                <td>{{ $item->board_id }}</td>
-                <td>{{ $item->user_id }}</td>
-                <td>{{ $item->btitle }}</td>
-                <td>{{ $item->bcontent }}</td>
-                <td>{{ $item->created_at }}</td>
-            </tr>
+                <form action="{{ route('board.boarddel', ['id' => $item->board_id])}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <tr>
+                        <td>{{ $item->board_id }}</td>
+                        <td>{{ $item->user_id }}</td>
+                        <td>{{ $item->btitle }}</td>
+                        <td>{{ $item->created_at }}</td>
+                        <td>{{$item->deleted_at}}</td>
+                            @if($item->deleted_at === null)
+                                <td><button type="submit">삭제</button></td>
+                            @elseif($item->deleted_at !== null)
+                                <td>삭제된 게시글입니다.</td>
+                            @endif
+                    </tr>
+                </form>
             @endforeach
         </table>
     </div>

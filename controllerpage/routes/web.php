@@ -27,11 +27,18 @@ use Illuminate\Support\Facades\Route;
 // 라우트수      : 총 
 // ---------------------------------------------
 use App\Http\Controllers\writeController;
-
+//전체 댓글 가져오는 라우트
 Route::get('/comment/commentlist', [writeController::class, 'commentlist'])->name('comment.commentlist');
-Route::post('/comment/commentdel',[writeController::class, 'commentdel'])->name('comment.commentdel');
+// 댓글 삭제 라우트
+Route::delete('/comment/commentdel/{id}',[writeController::class, 'commentdel'])->name('comment.commentdel');
+//전체 게시글 가져오는 라우트
+Route::get('/board/boardlist', [writeController::class, 'boardlist'])->name('board.boardlist');
+//게시글 삭제 라우트
+Route::delete('/board/boarddel/{id}',[writeController::class, 'boarddel'])->name('board.boarddel');
 
-Route::get('/board/boardlist', [writeController::class, 'boardlist'])->name('comment.commentlist');
+
+
+// Route::get('test',[writeController::class, 'test']);
 
 // ---------------------------------------------
 // 섹션명       : 게시글, 댓글 신고 
