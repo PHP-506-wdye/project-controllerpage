@@ -55,6 +55,7 @@ Route::get('/member/memberlist',[MemberController::class, 'memberinfo'])->name('
 // 해당 유저 정지 라우트
 Route::post('/member/memberstop',[MemberController::class, 'memberstop'])->name('member.memberstop');
 
+
 // Route::get('test',[writeController::class, 'test']);
 
 // ---------------------------------------------

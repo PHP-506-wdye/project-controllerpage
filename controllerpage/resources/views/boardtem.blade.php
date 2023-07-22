@@ -17,6 +17,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/temple/assets/images/favicon.png">
     <!-- Custom CSS -->
     <link href="/temple/css/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/table.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -231,7 +232,7 @@
                                                         <tr>
                                                             <td>{{ $item->board_id }}</td>
                                                             <td>{{ $item->user_id }}</td>
-                                                            <td>{{ $item->btitle }}</td>
+                                                            <td class="boardtitle">{{ $item->btitle }}</td>
                                                             <td>{{ $item->Count }}</td>
                                                             <td>{{ $item->created_at }}</td>
                                                             <td>{{$item->deleted_at}}</td>

@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +27,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // ---------------------------------------------
 use App\Http\Controllers\ApiReportController;
 Route::get('/reportdetail/{id}/{board}', [ApiReportController::class, 'reportDetail']);
+
+
+// ---------------------------------------------
+// 섹션명       : 유저 정지 복구 버튼
+// 기능         : 게시글, 댓글 상세 내용 관련 라우트 설정
+// 관리자       : 박상준
+// 생성일       : 2023-07-21
+// ---------------------------------------------
+
+use App\Http\Controllers\ApiMemberController;
+// 해당 유저 정지 복구 라우트
+Route::post('/member/memberreturn',[ApiMemberController::class, 'memberreturn'])->name('member.memberreturn');
